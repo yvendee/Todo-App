@@ -8,11 +8,13 @@ import {
   CreateTodoItemCommand, UpdateTodoItemDetailCommand
 } from '../web-api-client';
 
+
 @Component({
   selector: 'app-todo-component',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
+
 export class TodoComponent implements OnInit {
   debug = false;
   deleting = false;
@@ -170,18 +172,38 @@ export class TodoComponent implements OnInit {
     );
   }
 
+  //addItem() {
+  //  const item = {
+  //    id: 0,
+  //    listId: this.selectedList.id,
+  //    priority: this.priorityLevels[0].value,
+  //    title: '',
+  //    done: false,
+  //  } as TodoItemDto;
+
+  //  this.selectedList.items.push(item);
+  //  const index = this.selectedList.items.length - 1;
+  //  this.editItem(item, 'itemTitle' + index);
+  //}
+
   addItem() {
-    const item = {
-      id: 0,
-      listId: this.selectedList.id,
-      priority: this.priorityLevels[0].value,
-      title: '',
-      done: false
-    } as TodoItemDto;
+    const item = new TodoItemDto();
+    item.id = 0;
+    item.listId = this.selectedList.id;
+    item.priority = this.priorityLevels[0].value;
+    item.title = '';
+    item.done = false;
+    item.backgroundColor = '#FFFFFF'; // Initialize with a default color (e.g., white)
 
     this.selectedList.items.push(item);
     const index = this.selectedList.items.length - 1;
     this.editItem(item, 'itemTitle' + index);
+  }
+
+  updateBackgroundColor(item: TodoItemDto): void {
+    // You can optionally save the updated color to your backend here
+    // For now, we'll just log it to the console
+    console.log(`Updated background color for item ${item.id}: ${item.backgroundColor}`);
   }
 
   editItem(item: TodoItemDto, inputId: string): void {
